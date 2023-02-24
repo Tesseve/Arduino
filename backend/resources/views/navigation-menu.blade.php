@@ -18,6 +18,16 @@
                 </div>
 
                 <x-nav-dropdown title="Apps" align="right" width="48">
+                        @can('view-any', App\Models\Player::class)
+                        <x-dropdown-link href="{{ route('players.index') }}">
+                        Players
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Score::class)
+                        <x-dropdown-link href="{{ route('scores.index') }}">
+                        Scores
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
             </div>
@@ -146,6 +156,16 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             
+                @can('view-any', App\Models\Player::class)
+                <x-jet-responsive-nav-link href="{{ route('players.index') }}">
+                Players
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\Score::class)
+                <x-jet-responsive-nav-link href="{{ route('scores.index') }}">
+                Scores
+                </x-jet-responsive-nav-link>
+                @endcan
 
         </div>
 

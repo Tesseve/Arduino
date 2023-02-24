@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ScoreController;
+use App\Http\Controllers\Api\PlayerController;
+use App\Http\Controllers\Api\PlayerScoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +28,18 @@ Route::middleware('auth:sanctum')
 
 Route::name('api.')
     ->middleware('auth:sanctum')
-    ->group(function () {});
+    ->group(function () {
+        Route::apiResource('players', PlayerController::class);
+
+        // Player Scores
+        Route::get('/players/{player}/scores', [
+            PlayerScoresController::class,
+            'index',
+        ])->name('players.scores.index');
+        Route::post('/players/{player}/scores', [
+            PlayerScoresController::class,
+            'store',
+        ])->name('players.scores.store');
+
+        Route::apiResource('scores', ScoreController::class);
+    });

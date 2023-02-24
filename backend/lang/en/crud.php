@@ -21,4 +21,30 @@ return [
         'saved' => 'Saved successfully',
         'removed' => 'Successfully removed',
     ],
+
+    'players' => [
+        'name' => 'Players',
+        'index_title' => 'Players List',
+        'new_title' => 'New Player',
+        'create_title' => 'Create Player',
+        'edit_title' => 'Edit Player',
+        'show_title' => 'Show Player',
+        'inputs' => [
+            'name' => 'Name',
+        ],
+    ],
+
+    'scores' => [
+        'name' => 'Scores',
+        'index_title' => 'Scores List',
+        'new_title' => 'New Score',
+        'create_title' => 'Create Score',
+        'edit_title' => 'Edit Score',
+        'show_title' => 'Show Score',
+        'inputs' => [
+            'value' => 'Value',
+            'mode' => 'Mode',
+            'player_id' => 'Player',
+        ],
+    ],
 ];

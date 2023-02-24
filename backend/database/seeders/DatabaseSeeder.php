@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
                 'password' => \Hash::make('admin'),
             ]);
 
+        $this->call(PlayerSeeder::class);
+        $this->call(ScoreSeeder::class);
         $this->call(UserSeeder::class);
     }
 }

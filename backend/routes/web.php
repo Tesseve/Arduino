@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 
 Route::prefix('/')
     ->middleware(['auth:sanctum', 'verified'])
-    ->group(function () {});
+    ->group(function () {
+        Route::resource('players', PlayerController::class);
+        Route::resource('scores', ScoreController::class);
+    });
