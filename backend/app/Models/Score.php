@@ -13,6 +13,8 @@ class Score extends Model
 
     protected $fillable = ['value', 'mode', 'player_id'];
 
+    protected $with = ['player'];
+
     protected $searchableFields = ['*'];
 
     public function player()
