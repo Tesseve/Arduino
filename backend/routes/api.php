@@ -25,8 +25,10 @@ Route::get('/', function () {
 });
 
 Route::name('api.')
-    ->middleware(\App\Http\Middleware\ApiKeyMiddleware::class,)
-    ->group(function () {
+    ->middleware([
+        \App\Http\Middleware\ApiKeyMiddleware::class,
+        \App\Http\Middleware\Cors::class
+    ])->group(function () {
 
         Route::get('/scores/top', [
             ScoreController::class,

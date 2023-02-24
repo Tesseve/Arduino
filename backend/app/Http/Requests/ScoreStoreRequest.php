@@ -22,7 +22,7 @@ class ScoreStoreRequest extends FormRequest
         return [
             'value' => ['required', 'max:255'],
             'mode' => ['required', 'max:255', 'string'],
-            'player_id' => ['required', 'exists:players,id'],
+            'name' => ['required'],
         ];
     }
 }
