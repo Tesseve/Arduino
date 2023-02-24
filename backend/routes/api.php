@@ -25,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::name('api.')
+    ->middleware(\App\Http\Middleware\ApiKeyMiddleware::class,)
     ->group(function () {
         Route::apiResource('players', PlayerController::class);
 
