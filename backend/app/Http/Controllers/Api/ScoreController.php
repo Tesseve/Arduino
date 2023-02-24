@@ -88,7 +88,6 @@ class ScoreController extends Controller
                             ->on('s.value', '>=', 's2.value');
                     })
                     ->groupBy('s.id')
-                    ->havingRaw('COUNT(*) <= 10')
                     ->orderBy('s.mode', 'asc')
                     ->orderBy('s.value', 'asc');
             })
