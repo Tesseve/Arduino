@@ -27,7 +27,6 @@ Route::middleware('auth:sanctum')
     ->name('api.user');
 
 Route::name('api.')
-    ->middleware('auth:sanctum')
     ->group(function () {
         Route::apiResource('players', PlayerController::class);
 
