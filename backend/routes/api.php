@@ -18,6 +18,12 @@ use App\Http\Controllers\Api\PlayerScoresController;
 |
 */
 
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'Welcome to the API',
+    ]);
+});
+
 Route::name('api.')
     ->group(function () {
         Route::apiResource('players', PlayerController::class);
