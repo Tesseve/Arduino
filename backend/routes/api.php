@@ -18,14 +18,6 @@ use App\Http\Controllers\Api\PlayerScoresController;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login'])->name('api.login');
-
-Route::middleware('auth:sanctum')
-    ->get('/user', function (Request $request) {
-        return $request->user();
-    })
-    ->name('api.user');
-
 Route::name('api.')
     ->group(function () {
         Route::apiResource('players', PlayerController::class);
