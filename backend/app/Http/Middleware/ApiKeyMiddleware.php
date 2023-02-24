@@ -16,7 +16,7 @@ class ApiKeyMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $key = $request->get('api_key');
+        $key = $request->header('apikey');
         if (!$key || $key !== config('app.api_key')) {
             abort(403, 'Access denied');
         }

@@ -13,7 +13,7 @@ class PlayerPolicy
     /**
      * Determine whether the player can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class PlayerPolicy
     /**
      * Determine whether the player can view the model.
      */
-    public function view(User $user, Player $model): bool
+    public function view(?User $user, Player $model): bool
     {
         return true;
     }
@@ -29,7 +29,7 @@ class PlayerPolicy
     /**
      * Determine whether the player can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         return true;
     }

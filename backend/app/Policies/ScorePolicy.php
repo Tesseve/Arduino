@@ -13,7 +13,7 @@ class ScorePolicy
     /**
      * Determine whether the score can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class ScorePolicy
     /**
      * Determine whether the score can view the model.
      */
-    public function view(User $user, Score $model): bool
+    public function view(?User $user, Score $model): bool
     {
         return true;
     }
