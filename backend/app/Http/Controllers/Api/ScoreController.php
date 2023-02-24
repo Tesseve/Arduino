@@ -84,10 +84,10 @@ class ScoreController extends Controller
                     ->groupBy('s.id')
                     ->havingRaw('COUNT(*) <= 10')
                     ->orderBy('s.mode', 'asc')
-                    ->orderBy('s.value', 'desc');
+                    ->orderBy('s.value', 'asc');
             })
             ->orderBy('mode', 'asc')
-            ->orderBy('value', 'desc')
+            ->orderBy('value', 'asc')
             ->get();
 
         return new ScoreCollection($scores->groupBy('mode'));
