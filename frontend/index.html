@@ -1,11 +1,6 @@
+<!DOCTYPE html>
 <head>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script
-      language="javascript"
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"
-    ></script>
+
     <script src="sketch.js"></script>
     <title>Color mood display</title>
     <style>
@@ -13,6 +8,30 @@
         margin: 0;
       }
     </style>
-  </head>
-  <body></body>
+  <link type="text/css" rel="stylesheet" href="style.css">
 </head>
+<body>
+    <div id="container">
+        <button onclick="startCounters()">Start chrono</button>
+        <button onclick="stopCounters()">Stop chrono</button>
+        <button onclick="resetCounters()">Reset chrono</button>
+
+    </div>
+
+    <section id="section-chronos">
+      <section id="section-chrono0">
+        Chrono 1
+      </section>
+      <section id="section-chrono1">
+        Chrono 2
+      </section>
+    </section>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"
+    ></script>
+</body>

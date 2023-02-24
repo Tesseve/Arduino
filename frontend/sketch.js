@@ -1,13 +1,16 @@
-console.log("sketch");
-
 let serial; // variable to hold an instance of the serialport library
 let portName; // fill in your serial port name here
 
 let width = window.innerWidth;
 let height = window.innerHeight;
 
+let millisecs = [];
+let secs = [];
+let mins = [];
+
+let timers = [];
+
 function setup() {
-  console.log("Setup sketch");
   createCanvas(width, height);
 
   // serial
@@ -21,6 +24,8 @@ function setup() {
 
   serial.list(); // list the serial ports
   serial.open(portName); // open a serial port
+
+  init();
 }
 
 // get the list of ports:
@@ -50,3 +55,78 @@ function portClose() {
 }
 
 function draw() {}
+
+function init() {
+  timers = [];
+  addChronos();
+}
+
+function addChronos() {
+  addChrono(0);
+  addChrono(1);
+}
+
+function startCounters() {
+  startCounter(0);
+  startCounter(1);
+}
+
+function stopCounters() {
+  stopCounter(0);
+  stopCounter(1);
+}
+
+function startCounter(id) {
+  timer(id);
+}
+
+function stopCounter(id) {
+    clearTimeout(timers[id]);
+}
+
+function resetCounters() {
+  resetCounter(0);
+  resetCounter(1);
+}
+
+function resetCounter(id) {
+    clearTimeout(timers[id]);
+    mins[id] = 0;
+    secs[id] = 0;
+    millisecs[id] = 0;
+    document.getElementById('chrono'+ id).innerHTML = "00:00:00";
+}
+
+
+function addChrono(id) {
+    let chrono = document.createElement("div");
+    chrono.id = "chrono" + id;
+    chrono.className = "chrono";
+    chrono.innerHTML = "00:00:00";
+    document.getElementById("section-chrono"+id).appendChild(chrono);
+}
+
+function tick(id){
+  millisecs[id]++;
+  if ( millisecs[id] >= 60) {
+    millisecs[id] = 0;
+    secs[id]++;
+    if (secs[id] >= 60) {
+      secs[id] = 0;
+      mins[id]++;
+    }
+  }
+}
+function add(id) {
+  mins[id] = mins[id] || 0;
+  secs[id] = secs[id] || 0;
+  millisecs[id] = millisecs[id] || 0;
+  tick(id);
+  document.getElementById('chrono'+ id).innerHTML = (mins[id] > 9 ? mins[id] : "0" + mins[id])
+      + ":" + (secs[id] > 9 ? secs[id] : "0" + secs[id])
+      + ":" + (millisecs[id] > 9 ? millisecs[id] : "0" + millisecs[id]);
+  timer(id);
+}
+function timer(id) {
+  timers[id] = (setTimeout(() => add(id), 10));
+}

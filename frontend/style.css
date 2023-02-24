@@ -1,0 +1,11 @@
+#section-chronos {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.chrono {
+    color:red;
+    font-size: 6rem;
+}
