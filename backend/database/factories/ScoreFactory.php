@@ -24,7 +24,7 @@ class ScoreFactory extends Factory
     {
         return [
             'value' => $this->faker->randomNumber,
-            'mode' => $this->faker->text(255),
+            'mode' => $this->faker->randomElement(['20', '30', '50']),
             'player_id' => \App\Models\Player::factory(),
         ];
     }

@@ -27,6 +27,12 @@ Route::get('/', function () {
 Route::name('api.')
     ->middleware(\App\Http\Middleware\ApiKeyMiddleware::class,)
     ->group(function () {
+
+        Route::get('/scores/top', [
+            ScoreController::class,
+            'top',
+        ])->name('scores.top');
+
         Route::apiResource('players', PlayerController::class);
 
         // Player Scores
@@ -40,4 +46,5 @@ Route::name('api.')
         ])->name('players.scores.store');
 
         Route::apiResource('scores', ScoreController::class);
+
     });
