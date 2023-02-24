@@ -10,8 +10,10 @@ let mins = [];
 
 let timers = [];
 
+const apiUrl = "https://arduino.test/api/";
+
 function setup() {
-    createCanvas(width, height);
+    //createCanvas(width, height);
 
     // serial
     serial = new p5.SerialPort(); // make a new instance of the serialport library
@@ -28,6 +30,10 @@ function setup() {
     init();
 
     fetchScores();
+
+    //remove element from dom
+    const main = document.getElementsByTagName('main');
+    main[0].remove();
 }
 
 // get the list of ports:
@@ -135,16 +141,34 @@ function timer(id) {
     timers[id] = (setTimeout(() => add(id), 10));
 }
 
-
-async function fetchScores() {
-    const res = await fetch("https://arduino.tarrit.ch/api/scores/top", {
+async function getHttp(url) {
+    const res = await fetch(apiUrl + url, {
         headers: {
             'Content-Type': 'application/json',
             'apikey': 'AlrU5O9IyTmHw712sR8Wf2EisV0Ichd'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
         },
     });
-    const json = await res.json();
+    return await res.json();
+}
+
+async function postHttp(url, data) {
+    const res = await fetch(apiUrl + url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept' : 'application/json',
+            'apikey' : 'AlrU5O9IyTmHw712sR8Wf2EisV0Ichd'
+        },
+        body: JSON.stringify(data),
+    });
+
+    return await res.json();
+}
+
+
+async function fetchScores() {
+
+    const json = await getHttp("scores/top");
 
     console.log(json.data);
 
@@ -152,51 +176,71 @@ async function fetchScores() {
 }
 
 function renderTableTopScores(datas) {
-    let table = '<table><thead><tr><th>Mode 1</th><th>Mode 2</th><th>Mode 3</th></tr></thead><tbody>';
+    const section = document.getElementById('section-scores');
 
-    const dataByMode = {
-        mode1: datas[0],
-        mode2: datas[1],
-        mode3: datas[2]
-    };
+    section.querySelector('#table-scores')?.remove();
 
-    datas.forEach(data => {
-        if (data.mode === '20') {
-            dataByMode.mode1.push(data.value);
-        } else if (data.mode === '30') {
-            dataByMode.mode2.push(data.value);
-        } else if (data.mode === '50') {
-            dataByMode.mode3.push(data.value);
-        }
-    });
+    const table = document.createElement('table');
+    table.className = 'table';
+    table.id = 'table-scores';
 
-    const maxLength = Math.max(dataByMode.mode1.length, dataByMode.mode2.length, dataByMode.mode3.length);
+    const thead = document.createElement('thead');
+    const tr = document.createElement('tr');
 
-    for (let i = 0; i < maxLength; i++) {
-        table += '<tr>';
-
-        table += '<td>';
-        if (dataByMode.mode1[i] !== undefined) {
-            table += dataByMode.mode1[i].value;
-        }
-        table += '</td>';
-
-        table += '<td>';
-        if (dataByMode.mode2[i] !== undefined) {
-            table += dataByMode.mode2[i].value;
-        }
-        table += '</td>';
-
-        table += '<td>';
-        if (dataByMode.mode3[i] !== undefined) {
-            table += dataByMode.mode3[i].value;
-        }
-        table += '</td>';
-
-        table += '</tr>';
+    for (const mode of datas) {
+        const th = document.createElement('th');
+        th.innerHTML = mode[0].mode;
+        tr.appendChild(th);
     }
 
-    table += '</tbody></table>';
+    const tbody = document.createElement('tbody');
 
-    document.getElementById('section-scores').innerHTML = table;
+    for (let i = 0; i < 10; i++) {
+        const tr = document.createElement('tr');
+        for (const mode of datas) {
+            const td = document.createElement('td');
+            const score = mode[i];
+            const divContent = document.createElement('div');
+            divContent.className = 'td-content';
+            const pName = document.createElement('div');
+            pName.innerHTML = score?.player.name ?? '';
+            const pValue = document.createElement('div');
+            pValue.textContent = score?.value ?? '';
+
+            divContent.appendChild(pName);
+            divContent.appendChild(pValue);
+
+            td.appendChild(divContent);
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+
+
+
+
+
+    thead.appendChild(tr);
+    table.appendChild(tbody);
+    table.appendChild(thead);
+    section.appendChild(table);
+
+
+}
+
+async function saveScore(name, value, mode) {
+    const data = {
+        name,
+        value,
+        "mode" : mode.toString()
+    };
+    try {
+        const res = await postHttp("scores", data);
+        console.log(res);
+        if(res) {
+            fetchScores();
+        }
+    }catch (e) {
+        console.log(e);
+    }
 }

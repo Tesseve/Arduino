@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Player;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -29,11 +30,16 @@ class ScoreController extends Controller
 
     public function store(ScoreStoreRequest $request): ScoreResource
     {
-        $this->authorize('create', Score::class);
+       $this->authorize('create', Score::class);
 
-        $validated = $request->validated();
+        $player = Player::firstOrCreate([
+            "name" => $request->name,
+        ]);
 
-        $score = Score::create($validated);
+        $score = $player->scores()->create([
+            'value' => $request->value,
+            'mode' => $request->mode,
+        ]);
 
         return new ScoreResource($score);
     }
@@ -79,7 +85,7 @@ class ScoreController extends Controller
                     ->from('scores as s')
                     ->leftJoin('scores as s2', function($join) {
                         $join->on('s.mode', '=', 's2.mode')
-                            ->on('s.value', '<=', 's2.value');
+                            ->on('s.value', '>=', 's2.value');
                     })
                     ->groupBy('s.id')
                     ->havingRaw('COUNT(*) <= 10')

@@ -29,7 +29,7 @@ class ScorePolicy
     /**
      * Determine whether the score can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         return true;
     }

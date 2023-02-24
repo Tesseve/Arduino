@@ -3,9 +3,40 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
 }
 
 .chrono {
     color:red;
     font-size: 6rem;
+}
+
+#table-scores {
+    margin: 0 auto;
+    width: 80vw;
+    margin-bottom: 2rem;
+}
+
+#table-scores td {
+    padding: 0.5rem;
+    border: 1px solid black;
+}
+
+#table-scores th {
+    padding: 0.5rem;
+    border: 1px solid black;
+}
+
+#table-scores .td-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+#container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }

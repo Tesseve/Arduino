@@ -3,7 +3,7 @@
 <head>
 
     <script src="sketch.js"></script>
-    <title>Color mood display</title>
+    <title>Projet Arduino - Dario, Vincent</title>
     <style>
         body {
             margin: 0;
@@ -14,23 +14,25 @@
 
 <body>
     <div id="container">
-        <button onclick="startCounters()">Start chrono</button>
-        <button onclick="stopCounters()">Stop chrono</button>
-        <button onclick="resetCounters()">Reset chrono</button>
+        <div id="header-buttons">
+            <button onclick="startCounters()">Start chrono</button>
+            <button onclick="stopCounters()">Stop chrono</button>
+            <button onclick="resetCounters()">Reset chrono</button>
+            <button onclick="saveScore('Vincent', 300, 20)">Save</button>
+        </div>
+        <section id="section-chronos">
+            <section id="section-chrono0">
+                Chrono 1
+            </section>
+            <section id="section-chrono1">
+                Chrono 2
+            </section>
+        </section>
 
+        <section id="section-scores">
+        </section>
     </div>
 
-    <section id="section-chronos">
-        <section id="section-chrono0">
-            Chrono 1
-        </section>
-        <section id="section-chrono1">
-            Chrono 2
-        </section>
-    </section>
-
-    <section id="section-scores">
-    </section>
 
 
 
