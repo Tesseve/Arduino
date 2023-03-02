@@ -1,13 +1,12 @@
 #include <Pushbutton.h>
+#include <avdweb_Switch.h>
 
 const int nbrOfButtons = 3;
 int nbrOfLeds = 3;
 int nbrRound = 20;
 int PUNISHMENT = 1000;
 
-int switchPin = 2;
-
-int pinButton1 = 1;
+int pinButton1 = 2;
 int pinButton2 = 3;
 int pinButton3 = 4;
 int pinButton4 = 5;
@@ -64,7 +63,8 @@ int lastBlink2 = 0;
 int lastBlinkState1 = 0;
 int lastBlinkState2 = 0;
 
-int lastValueSwitch = 0;
+Switch toggleSwitch = Switch(1); 
+
 
 int on()
 {
@@ -90,13 +90,7 @@ void setup()
 
 void loop()
 {
-
-  int switchValue = digitalRead(switchPin);
-  if(lastValueSwitch != switchValue) {
-    Serial.println(switchValue);
-    lastValueSwitch = switchValue;
-  }
-  /* readIncomingDatas();
+  readIncomingDatas();
 
 
   if(canPlay1 == 1) {
@@ -122,7 +116,7 @@ void loop()
     }  
   }
 
-  endGame(); */
+  endGame(); 
   
 }
 

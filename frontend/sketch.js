@@ -1,5 +1,5 @@
 let serial; // variable to hold an instance of the serialport library
-let portName = "/dev/tty.usbmodem1101"; // fill in your serial port name here
+let portName = "/dev/tty.usbmodem11101"; // fill in your serial port name here
 
 let width = window.innerWidth;
 let height = window.innerHeight;
@@ -12,13 +12,11 @@ let errors = [0,0];
 
 let timers = [];
 
-let isInit = false;
-
 const PUNISHMENT = 2;
 
 const apiUrl = "https://arduino.test/api/";
 
-function setup() {
+async function setup() {
   //createCanvas(width, height);
 
   // serial
@@ -36,8 +34,12 @@ function setup() {
   init();
 
   //remove element from dom
-  const main = document.getElementsByTagName("main");
-  main[0].remove();
+  /* const main = document.getElementsByTagName("main");
+  main[0].remove(); */
+}
+
+function draw() {
+  renderErrors();
 }
 
 // get the list of ports:
@@ -50,6 +52,10 @@ function printList(portList) {
 
 function serverConnected() {
   console.log("connected to server.");
+  if(getIsInit() == false){
+    fetchScores();
+    setIsInit();
+  }
 }
 
 function portOpen() {
@@ -80,9 +86,7 @@ function portClose() {
   console.log("The serial port is closed.");
 }
 
-function draw() {
-  renderErrors();
-}
+
 
 function init() {
   timers = [];
@@ -202,7 +206,6 @@ async function fetchScores() {
 function renderTableTopScores(datas) {
   const section = document.getElementById("section-scores");
 
-  section.querySelector("#table-scores")?.remove();
 
   const table = document.createElement("table");
   table.className = "table";
@@ -243,6 +246,8 @@ function renderTableTopScores(datas) {
   thead.appendChild(tr);
   table.appendChild(tbody);
   table.appendChild(thead);
+  section.querySelector("#table-scores")?.remove();
+
   section.appendChild(table);
 }
 
@@ -263,7 +268,7 @@ async function saveScore(name, value, mode) {
   }
 }
 
-//fetchScores();
+
 
 function write(command, params) {
   const query = buildQuery(command, params);
@@ -297,4 +302,14 @@ function renderErrors() {
   for (let i = 0; i < 2; i++) {
     document.getElementById("errors_" + i).innerHTML = "Erreurs : " + errors[i];
   }
+}
+
+
+function getIsInit() {
+  const value = localStorage.getItem("init");
+  return value == "true";
+}
+
+function setIsInit() {
+  localStorage.setItem("init", true);
 }
