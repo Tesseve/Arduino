@@ -1,3 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+
+#container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    font-family: VT323;
+}
+
+#header-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem 7rem 0rem;
+}
+
+.player {
+    color: yellow;
+    display: flex;
+    margin: 3rem 10rem 0rem;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+img {
+    width: 300px;
+}
+
+hr {
+    width: 90%;
+    border: 1px solid white;
+}
+
+.text {
+    color: white;
+    font-size: 4rem;
+}
+
 #section-chronos {
     text-align: center;
     color: yellow;
@@ -10,13 +54,63 @@
 
 .chrono {
     color: blue;
-    font-size: 6rem;
+    font-size: 7rem;
     background-color: white;
     padding: 0.5rem 1rem;
     border-right: 0.5rem solid;
     border-bottom: 0.5rem solid;
     border-color: orange;
+    margin: 1rem 0rem 0rem;
 }
+
+#section-buttons {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    width: 100%;
+    margin: 0rem 0rem 0rem;
+}
+
+button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    color: purple;
+    font-family: VT323;
+    font-size: 3rem;
+    background-color: yellow;
+    padding: 0.5rem 1rem;
+    border-right: 0.5rem solid;
+    border-bottom: 0.5rem solid;
+    border-color: red;
+    margin: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#section-scores {
+    text-align: center;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0rem 0rem 8rem;
+}
+
+#title {
+    color: Yellow;
+    font-size: 3rem;
+}
+
+.historic {
+    color: white;
+}
+
+
 
 #table-scores {
     margin: 0 auto;
@@ -37,55 +131,4 @@
 #table-scores .td-content {
     display: flex;
     justify-content: space-between;
-}
-
-#container {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: black;
-    font-family: pixeloid, sans-serif;
-}
-
-#buttons {
-    display: flex;
-    flex-direction: row;
-    /* justify-content: space-around; */
-    width: 100%;
-    margin: 2rem;
-}
-
-button {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    color: blue;
-    font-size: 1rem;
-    background-color: white;
-    padding: 0.5rem 1rem;
-    border-right: 0.5rem solid;
-    border-bottom: 0.5rem solid;
-    border-color: orange;
-    margin: 0.5rem;
-
-}
-
-#header-game {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-    width: 100%;
-    margin: 2rem;
-}
-
-.player {
-    color: yellow;
-}
-
-img {
-    width: 300px;
 }
