@@ -1,5 +1,7 @@
 #section-chronos {
     text-align: center;
+    color: yellow;
+    font-size: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -7,8 +9,13 @@
 }
 
 .chrono {
-    color:red;
+    color: blue;
     font-size: 6rem;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-right: 0.5rem solid;
+    border-bottom: 0.5rem solid;
+    border-color: orange;
 }
 
 #table-scores {
@@ -39,4 +46,46 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: black;
+    font-family: pixeloid, sans-serif;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    width: 100%;
+    margin: 2rem;
+}
+
+button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: blue;
+    font-size: 1rem;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-right: 0.5rem solid;
+    border-bottom: 0.5rem solid;
+    border-color: orange;
+    margin: 0.5rem;
+
+}
+
+#header-game {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    margin: 2rem;
+}
+
+.player {
+    color: yellow;
+}
+
+img {
+    width: 300px;
 }

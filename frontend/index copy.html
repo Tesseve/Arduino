@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+
+    <script src="sketch.js"></script>
+    <title>Projet Arduino - Dario, Vincent</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+        <section id="header-game">
+            <div class="player">
+                first player
+            </div>
+            <div id="logo">
+                <img src="\Docs\logo.png" alt="logo">
+            </div>
+            <div class="player">
+                second player
+            </div>
+
+        </section>
+        <div id="buttons">
+            <button onclick="startCounters()">Start chrono</button>
+            <button onclick="stopCounters()">Stop chrono</button>
+            <button onclick="resetCounters()">Reset chrono</button>
+            <button onclick="saveScore('Vincent', 300, 30)">Save</button>
+            <button onclick="fetchScores()">Get Scores</button>
+        </div>
+        <section id="section-chronos">
+            <section id="section-chrono0">
+                Chrono 1
+                <div id="errors_0"></div>
+            </section>
+            <section id="section-chrono1">
+                Chrono 2
+
+                <div id="errors_1"></div>
+            </section>
+        </section>
+
+        <section id="section-scores">
+        </section>
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"></script>
+</body>
