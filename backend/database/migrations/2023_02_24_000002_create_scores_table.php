@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('value');
+            $table->string('value');
             $table->string('mode');
             $table->unsignedBigInteger('player_id');
 

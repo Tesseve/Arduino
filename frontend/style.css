@@ -3,13 +3,14 @@
 
 #container {
     height: 100vh;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: black;
     font-family: VT323;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 #header-game {
@@ -48,9 +49,11 @@ hr {
     font-size: 2rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    width: 90%;
 }
+
+
 
 .chrono {
     color: blue;
@@ -59,19 +62,19 @@ hr {
     padding: 0.5rem 1rem;
     border-right: 0.5rem solid;
     border-bottom: 0.5rem solid;
-    border-color: orange;
+    border-color: yellow;
     margin: 1rem 0rem 0rem;
 }
 
 #section-buttons {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
-    width: 100%;
-    margin: 0rem 0rem 0rem;
+    justify-content: space-between;
+    width: 90%;
+    column-gap: 2rem;
 }
 
-button {
+button, #select-nbrleds {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -84,7 +87,6 @@ button {
     border-right: 0.5rem solid;
     border-bottom: 0.5rem solid;
     border-color: red;
-    margin: 0.5rem;
 }
 
 button:hover {
@@ -97,8 +99,7 @@ button:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 100%;
-    margin: 0rem 0rem 8rem;
+    width: 90%;
 }
 
 #title {
@@ -114,21 +115,31 @@ button:hover {
 
 #table-scores {
     margin: 0 auto;
-    width: 80vw;
+    width: 60vw;
     margin-bottom: 2rem;
 }
 
 #table-scores td {
     padding: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid white;
+    color: white;
 }
 
 #table-scores th {
     padding: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid white;
+    color: white;
 }
 
 #table-scores .td-content {
     display: flex;
     justify-content: space-between;
+}
+
+.red {
+    color: red;
+}
+
+#section-chronos .red .chrono {
+    border-color: red;
 }

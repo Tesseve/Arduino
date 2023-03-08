@@ -1,30 +1,50 @@
 #include <Pushbutton.h>
 #include <avdweb_Switch.h>
 
-const int nbrOfButtons = 3;
-int nbrOfLeds = 3;
+const int nbrOfButtons = 8;
+int nbrOfLeds = 8;
 int nbrRound = 20;
 int PUNISHMENT = 1000;
 
-int pinButton1 = 2;
-int pinButton2 = 3;
-int pinButton3 = 4;
-int pinButton4 = 5;
-int pinButton5 = 6;
-int pinButton6 = 7;
+int pinButton1 = 23;
+int pinButton2 = 25;
+int pinButton3 = 27;
+int pinButton4 = 29;
+int pinButton5 = 31;
+int pinButton6 = 33;
+int pinButton7 = 35;
+int pinButton8 = 37;
+int pinButton9 = 22;
+int pinButton10 = 24;
+int pinButton11 = 26;
+int pinButton12 = 28;
+int pinButton13 = 30;
+int pinButton14 = 32;
+int pinButton15 = 34;
+int pinButton16 = 36;
 
-int buttonsPin1[] = {pinButton1, pinButton2, pinButton3};
-int buttonsPin2[] = {pinButton4, pinButton5, pinButton6};
+int buttonsPin1[] = {pinButton1, pinButton2, pinButton3, pinButton4, pinButton5, pinButton6, pinButton7, pinButton8};
+int buttonsPin2[] = {pinButton9, pinButton10, pinButton11, pinButton12, pinButton13, pinButton14, pinButton15, pinButton16};
 
-int pinLed1 = 8;
-int pinLed2 = 9;
-int pinLed3 = 10;
-int pinLed4 = 11;
-int pinLed5 = 12;
-int pinLed6 = 13;
+int pinLed1 = 39;
+int pinLed2 = 41;
+int pinLed3 = 43;
+int pinLed4 = 45;
+int pinLed5 = 47;
+int pinLed6 = 49;
+int pinLed7 = 51;
+int pinLed8 = 53;
+int pinLed9 = 38;
+int pinLed10 = 40;
+int pinLed11 = 42;
+int pinLed12 = 44;
+int pinLed13 = 46;
+int pinLed14 = 48;
+int pinLed15 = 50;
+int pinLed16 = 52;
 
-int leds1[] = {pinLed1, pinLed2, pinLed3};
-int leds2[] = {pinLed4, pinLed5, pinLed6};
+int leds1[] = {pinLed1, pinLed2, pinLed3,pinLed4, pinLed5, pinLed6, pinLed7, pinLed8};
+int leds2[] = {pinLed9, pinLed10, pinLed11,pinLed12, pinLed13, pinLed14, pinLed15, pinLed16};
 
 int randomLed1;
 int timeStart1 = 0;
@@ -48,9 +68,19 @@ Pushbutton button3(pinButton3);
 Pushbutton button4(pinButton4);
 Pushbutton button5(pinButton5);
 Pushbutton button6(pinButton6);
+Pushbutton button7(pinButton7);
+Pushbutton button8(pinButton8);
+Pushbutton button9(pinButton9);
+Pushbutton button10(pinButton10);
+Pushbutton button11(pinButton11);
+Pushbutton button12(pinButton12);
+Pushbutton button13(pinButton13);
+Pushbutton button14(pinButton14);
+Pushbutton button15(pinButton15);
+Pushbutton button16(pinButton16);
 
-Pushbutton buttons1[] = {button1, button2, button3};
-Pushbutton buttons2[] = {button4, button5, button6};
+Pushbutton buttons1[] = {button1, button2, button3, button4, button5, button6, button7, button8};
+Pushbutton buttons2[] = {button9, button10, button11, button12, button13, button14, button15, button16};
 
 int winner = 0;
 
@@ -85,12 +115,15 @@ void setup()
 
   setupGame();
 
-  //startGame();
+  startGame(); 
+
 }
 
 void loop()
 {
-  readIncomingDatas();
+  //testButtons2();
+
+   readIncomingDatas();
 
 
   if(canPlay1 == 1) {
@@ -116,7 +149,7 @@ void loop()
     }  
   }
 
-  endGame(); 
+  endGame();  
   
 }
 
@@ -157,6 +190,9 @@ void setupGame()
 
   nbrRoundPlayed1 = 0;
   nbrRoundPlayed2 = 0;
+
+  ledStarted1 = -1;
+  ledStarted2 = -1;
 
 
 
@@ -290,8 +326,12 @@ void readIncomingDatas() {
 
       int delim = s.indexOf(':');
       String command = s.substring(0,delim);
+      String params = "";
+      if(delim != s.length() - 1) {
+        params = s.substring(delim + 1, s.length());
+      }
 
-      Serial.println("Command : " + command);
+      Serial.println("Command : " + command + ", params : " + params);
 
       if(command == "start") {
         startGame();
@@ -300,10 +340,36 @@ void readIncomingDatas() {
       if(command == "reset") {
         setupGame();
       }
+
+      if(command == "nbrrounds") {
+        setupNbrRound(params.toInt());
+      }
       
   }
 }
 
+void setupNbrRound(int nbr) {
+  nbrRound = nbr;
+  setupGame();
+}
+
 void sendCommand(String command) {
   Serial.println((String) "c|" + command);
+}
+
+
+void testButtons1() {
+  for(int i = 0; i < nbrOfButtons; i++) {
+    if(buttons1[i].isPressed()) {
+      digitalWrite(leds1[i], off());
+    }
+  }
+}
+
+void testButtons2() {
+  for(int i = 0; i < nbrOfButtons; i++) {
+    if(buttons2[i].isPressed()) {
+      digitalWrite(leds2[i], on());
+    }
+  }
 }

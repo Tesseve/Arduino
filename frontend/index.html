@@ -14,32 +14,65 @@
 
 <body>
     <div id="container">
-        <div id="header-buttons">
-            <button onclick="startCounters()">Start chrono</button>
-            <button onclick="stopCounters()">Stop chrono</button>
-            <button onclick="resetCounters()">Reset chrono</button>
-            <button onclick="saveScore('Vincent', 300, 30)">Save</button>
-            <button onclick="fetchScores()">Get Scores</button>
-        </div>
+        <section id="header-game">
+            <div id="name_player_0" class="player" contenteditable="true">
+                FIRST PLAYER
+            </div>
+            <div id="logo">
+                <img src="assets/logo.png" alt="logo">
+            </div>
+            <div id="name_player_1" class="player red" contenteditable="true">
+                SECOND PLAYER
+            </div>
+        </section>
+
+        <hr>
+
         <section id="section-chronos">
             <section id="section-chrono0">
-                Chrono 1
                 <div id="errors_0"></div>
             </section>
-            <section id="section-chrono1">
-                Chrono 2
-                
+            <section>
+                <div class="text">
+                    Options de jeux
+                    <select id="select-nbrleds" onchange="chooseNbrLeds()">
+                        <option value="20">20 lampes</option>
+                        <option value="30">30 lampes</option>
+                        <option value="40">40 lampes</option>
+                        <option value="50">50 lampes</option>
+                    </select>
+                </div>
+                <br>
+                1 erreur = 2 secondes de pénalité
+            </section>
+
+            <section id="section-chrono1" class="red">
                 <div id="errors_1"></div>
             </section>
         </section>
 
+        <hr>
+
+        <section id="section-buttons">
+            <button onclick="startCounters()">Start chrono</button>
+            <button onclick="stopCounters()">Stop chrono</button>
+            <button onclick="resetCounters()">Reset chrono</button>
+            <button onclick="saveScore('Vincent', 300, 30)">Save</button>
+            <!-- <button onclick="fetchScores()">Get Scores</button> -->
+        </section>
+
+        <hr>
+
         <section id="section-scores">
+            <div id="title">
+                HISTORIQUE
+            </div>
+           
         </section>
     </div>
 
 
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"></script>
 </body>

@@ -1,5 +1,5 @@
 let serial; // variable to hold an instance of the serialport library
-let portName = "/dev/tty.usbmodem11101"; // fill in your serial port name here
+let portName = "/dev/tty.usbmodem21101"; // fill in your serial port name here
 
 let width = window.innerWidth;
 let height = window.innerHeight;
@@ -13,10 +13,11 @@ let errors = [0,0];
 let timers = [];
 
 const PUNISHMENT = 2;
+const NBR_HISTORIC_TO_DISPLAY = 3;
 
 const apiUrl = "https://arduino.test/api/";
 
-async function setup() {
+function setup() {
   //createCanvas(width, height);
 
   // serial
@@ -34,9 +35,18 @@ async function setup() {
   init();
 
   //remove element from dom
-  /* const main = document.getElementsByTagName("main");
-  main[0].remove(); */
+  noLoop();
+
+  const main = document.getElementsByTagName("main")[0];
+  main.remove();
+} 
+
+function preload() {
+  console.log("preload");
+  fetchScores();
 }
+
+
 
 function draw() {
   renderErrors();
@@ -52,10 +62,6 @@ function printList(portList) {
 
 function serverConnected() {
   console.log("connected to server.");
-  if(getIsInit() == false){
-    fetchScores();
-    setIsInit();
-  }
 }
 
 function portOpen() {
@@ -122,6 +128,7 @@ function stopCounter(id) {
 function resetCounters() {
   resetCounter(0);
   resetCounter(1);
+  errors = [0,0];
   write("reset");
 }
 
@@ -196,11 +203,12 @@ async function postHttp(url, data) {
 }
 
 async function fetchScores() {
+  console.log("fetch scores");
   const json = await getHttp("scores/top");
 
   console.log(json.data);
 
-  renderTableTopScores(json.data);
+  renderTableTopScores(json.data); 
 }
 
 function renderTableTopScores(datas) {
@@ -216,13 +224,13 @@ function renderTableTopScores(datas) {
 
   for (const mode of datas) {
     const th = document.createElement("th");
-    th.innerHTML = mode[0].mode;
+    th.innerHTML = mode[0].mode + " lampes";
     tr.appendChild(th);
   }
 
   const tbody = document.createElement("tbody");
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < NBR_HISTORIC_TO_DISPLAY; i++) {
     const tr = document.createElement("tr");
     for (const mode of datas) {
       const td = document.createElement("td");
@@ -261,7 +269,7 @@ async function saveScore(name, value, mode) {
     const res = await postHttp("scores", data);
     console.log(res);
     if (res) {
-      fetchScores();
+      await fetchScores();
     }
   } catch (e) {
     console.log(e);
@@ -288,7 +296,9 @@ function buildQuery(command, params) {
 
 function parseCommand(command, params) {
   if(command == "stop"){
-    stopCounter(params[0] - 1);
+    const id = params[0] - 1;
+    stopCounter(id);
+    saveScore(getName(id), getTimeString(id), getMode());
   } 
 
   if(command == "error"){
@@ -312,4 +322,30 @@ function getIsInit() {
 
 function setIsInit() {
   localStorage.setItem("init", true);
+}
+
+function chooseNbrLeds() {
+  const leds = document.getElementById("select-nbrleds").value;
+  console.log(leds);
+  resetCounter(0);
+  resetCounter(1);
+  write("nbrrounds", [leds]);
+}
+
+function getMode() {
+  return document.getElementById("select-nbrleds").value;
+}
+
+function getTimeString(id) {
+  return (
+    (mins[id] > 9 ? mins[id] : "0" + mins[id]) +
+    ":" +
+    (secs[id] > 9 ? secs[id] : "0" + secs[id]) +
+    ":" +
+    (millisecs[id] > 9 ? millisecs[id] : "0" + millisecs[id])
+  );
+}
+
+function getName(id) {
+  return document.getElementById("name_player_" + id).textContent.trim();
 }
