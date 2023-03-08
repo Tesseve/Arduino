@@ -25,8 +25,6 @@ const apiUrl = "https://arduino.tarrit.ch/api/";
 
 /* Corps de fonction P5 */
 
-
-
 function setup() {
   //createCanvas(width, height);
 
