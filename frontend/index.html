@@ -16,13 +16,13 @@
     <div id="container">
         <section id="header-game">
             <div id="name_player_0" class="player" contenteditable="true">
-                FIRST PLAYER
+                Dario
             </div>
             <div id="logo">
                 <img src="assets/logo.png" alt="logo">
             </div>
             <div id="name_player_1" class="player red" contenteditable="true">
-                SECOND PLAYER
+                 Vincent
             </div>
         </section>
 
@@ -54,11 +54,8 @@
         <hr>
 
         <section id="section-buttons">
-            <button onclick="startCounters()">Start chrono</button>
-            <button onclick="stopCounters()">Stop chrono</button>
+            <button id="button-toggle" onclick="toggleCounters()">Start (Espace)</button>
             <button onclick="resetCounters()">Reset chrono</button>
-            <button onclick="saveScore('Vincent', 300, 30)">Save</button>
-            <!-- <button onclick="fetchScores()">Get Scores</button> -->
         </section>
 
         <hr>

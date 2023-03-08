@@ -12,6 +12,9 @@ let errors = [0,0];
 
 let timers = [];
 
+let isStarted1 = false;
+let isStarted2 = false;
+
 const PUNISHMENT = 2;
 const NBR_HISTORIC_TO_DISPLAY = 3;
 
@@ -105,6 +108,9 @@ function addChronos() {
 }
 
 function startCounters() {
+  if(isStarted1 || isStarted2) return;
+  isStarted1 = true;
+  isStarted2 = true;
   write("start");
 
   startCounter(0);
@@ -115,6 +121,8 @@ function startCounters() {
 function stopCounters() {
   stopCounter(0);
   stopCounter(1);
+  isStarted1 = false;
+  isStarted2 = false;
 }
 
 function startCounter(id) {
@@ -123,6 +131,16 @@ function startCounter(id) {
 
 function stopCounter(id) {
   clearTimeout(timers[id]);
+
+  if(id == 0){
+    isStarted1 = false;
+  }else{
+    isStarted2 = false;
+  }
+
+  if(!isStarted1 && !isStarted2){
+    toggleCountersText();
+  }
 }
 
 function resetCounters() {
@@ -305,6 +323,7 @@ function parseCommand(command, params) {
     console.log("error: " + params[0]);
     secs[params[0] - 1] += PUNISHMENT;
     errors[params[0] - 1]++;
+    renderErrors();
   }
 }
 
@@ -348,4 +367,25 @@ function getTimeString(id) {
 
 function getName(id) {
   return document.getElementById("name_player_" + id).textContent.trim();
+}
+
+
+document.onkeyup = function(e) {
+  if(e.key == " "){
+    toggleCounters();
+  }
+
+  if(e.key == "Escape"){
+    resetCounters();
+  }
+};
+
+function toggleCounters() {
+  isStarted1 || isStarted2 ? stopCounters() : startCounters();
+
+  toggleCountersText();
+}
+
+function toggleCountersText() {
+  document.getElementById("button-toggle").textContent = (isStarted1 && isStarted2 ? "Stop" : "Start" ) + " (Espace)";
 }

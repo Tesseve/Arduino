@@ -115,7 +115,7 @@ void setup()
 
   setupGame();
 
-  startGame(); 
+  //startGame(); 
 
 }
 
@@ -334,6 +334,7 @@ void readIncomingDatas() {
       Serial.println("Command : " + command + ", params : " + params);
 
       if(command == "start") {
+        setupGame();
         startGame();
       } 
 
@@ -355,21 +356,4 @@ void setupNbrRound(int nbr) {
 
 void sendCommand(String command) {
   Serial.println((String) "c|" + command);
-}
-
-
-void testButtons1() {
-  for(int i = 0; i < nbrOfButtons; i++) {
-    if(buttons1[i].isPressed()) {
-      digitalWrite(leds1[i], off());
-    }
-  }
-}
-
-void testButtons2() {
-  for(int i = 0; i < nbrOfButtons; i++) {
-    if(buttons2[i].isPressed()) {
-      digitalWrite(leds2[i], on());
-    }
-  }
 }
