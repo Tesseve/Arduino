@@ -1,3 +1,5 @@
+/* Definition variables */
+
 let serial; // variable to hold an instance of the serialport library
 let portName = "/dev/tty.usbmodem21101"; // fill in your serial port name here
 
@@ -19,6 +21,11 @@ const PUNISHMENT = 2;
 const NBR_HISTORIC_TO_DISPLAY = 3;
 
 const apiUrl = "https://arduino.test/api/";
+
+
+/* Corps de fonction P5 */
+
+
 
 function setup() {
   //createCanvas(width, height);
@@ -96,6 +103,7 @@ function portClose() {
 }
 
 
+/* Corps fonctions personnels */
 
 function init() {
   timers = [];
@@ -294,8 +302,6 @@ async function saveScore(name, value, mode) {
   }
 }
 
-
-
 function write(command, params) {
   const query = buildQuery(command, params);
   console.log("sending: " + query);
@@ -310,7 +316,6 @@ function buildQuery(command, params) {
   }
   return query;
 }
-
 
 function parseCommand(command, params) {
   if(command == "stop"){
@@ -333,15 +338,6 @@ function renderErrors() {
   }
 }
 
-
-function getIsInit() {
-  const value = localStorage.getItem("init");
-  return value == "true";
-}
-
-function setIsInit() {
-  localStorage.setItem("init", true);
-}
 
 function chooseNbrLeds() {
   const leds = document.getElementById("select-nbrleds").value;
@@ -367,6 +363,18 @@ function getName(id) {
   return document.getElementById("name_player_" + id).textContent.trim();
 }
 
+function toggleCounters() {
+  isStarted1 || isStarted2 ? stopCounters() : startCounters();
+
+  toggleCountersText();
+}
+
+function toggleCountersText() {
+  document.getElementById("button-toggle").textContent = (isStarted1 && isStarted2 ? "Stop" : "Start" ) + " (Espace)";
+}
+
+
+/* Raccourcis claviers */
 
 document.onkeyup = function(e) {
   if(e.key == " "){
@@ -377,13 +385,3 @@ document.onkeyup = function(e) {
     resetCounters();
   }
 };
-
-function toggleCounters() {
-  isStarted1 || isStarted2 ? stopCounters() : startCounters();
-
-  toggleCountersText();
-}
-
-function toggleCountersText() {
-  document.getElementById("button-toggle").textContent = (isStarted1 && isStarted2 ? "Stop" : "Start" ) + " (Espace)";
-}

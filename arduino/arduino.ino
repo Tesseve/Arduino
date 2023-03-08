@@ -1,6 +1,8 @@
 #include <Pushbutton.h>
 #include <avdweb_Switch.h>
 
+/* Définition variables */
+
 const int nbrOfButtons = 8;
 int nbrOfLeds = 8;
 int nbrRound = 20;
@@ -93,8 +95,8 @@ int lastBlink2 = 0;
 int lastBlinkState1 = 0;
 int lastBlinkState2 = 0;
 
-Switch toggleSwitch = Switch(1); 
 
+/* Le HIGH et LOW sont inversés donc ces fonctions permettent d'utiliser on() et off() plutot que la valeur en dur */
 
 int on()
 {
@@ -105,6 +107,8 @@ int off()
 {
   return HIGH;
 }
+
+/* Setup */
 
 void setup()
 {
@@ -153,6 +157,9 @@ void loop()
   
 }
 
+
+/* Fonctions */
+
 void checkIfWellPlayedPlayer1(int i) {
   if(i == gamingLeds1[nbrRoundPlayed1]) {
     nbrRoundPlayed1++;
@@ -172,7 +179,6 @@ void checkIfWellPlayedPlayer2(int i) {
     return 0;
   }
 }
-
 
 void setupGame()
 {
@@ -206,7 +212,7 @@ void setupGame()
     digitalWrite(leds2[i], off());
   }
 
-  //set the lights to play for each player
+  //set the lights to play for each player (random but never the same following)
   for (int i = 0; i < nbrRound; i++)
   {
     int _randomLed1;
@@ -283,32 +289,14 @@ void endGame() {
   }
 }
 
+// On voulait faire clignoter les leds du gagnant mais on a pas réussi à faire clignoter les leds donc on les éteint
 void blinkLightWinner1() {
-  /* for(int i = 0; i < 10; i++) {
-    if(millis() - lastBlink1 > 100 ) {
-      for(int j = 0; j < nbrOfLeds; j++) {
-        digitalWrite(leds1[j], lastBlinkState1 == 0 ? on() : off());
-      }
-      lastBlink1 = millis();
-      lastBlinkState1 = lastBlinkState1 == 0 ? 1 : 0;
-    } 
-  } */
   for(int j = 0; j < nbrOfLeds; j++) {
     digitalWrite(leds1[j], off());
   }
-
 }
 
 void blinkLightWinner2() {
-  /* for(int i = 0; i < 10; i++) {
-    if(millis() - lastBlink2 > 100 ) {
-      for(int j = 0; j < nbrOfLeds; j++) {
-        digitalWrite(leds2[j], lastBlinkState2 == 0 ? on() : off());
-      }
-      lastBlink2 = millis();
-      lastBlinkState2 = lastBlinkState2 == 0 ? 1 : 0;
-    } 
-  } */
     for(int j = 0; j < nbrOfLeds; j++) {
       digitalWrite(leds2[j], off());
     }
@@ -318,6 +306,8 @@ void startGame() {
   canPlay1 = 1;
   canPlay2 = 1;
 }
+
+/* Permet de lire les données venant de l'interface web */
 
 void readIncomingDatas() {
   if(Serial.available() > 0){
@@ -353,6 +343,8 @@ void setupNbrRound(int nbr) {
   nbrRound = nbr;
   setupGame();
 }
+
+/* Permet d'envoyer des données à l'interface web */
 
 void sendCommand(String command) {
   Serial.println((String) "c|" + command);
