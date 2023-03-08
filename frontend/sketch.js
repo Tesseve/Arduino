@@ -357,8 +357,6 @@ function getMode() {
 
 function getTimeString(id) {
   return (
-    (mins[id] > 9 ? mins[id] : "0" + mins[id]) +
-    ":" +
     (secs[id] > 9 ? secs[id] : "0" + secs[id]) +
     ":" +
     (millisecs[id] > 9 ? millisecs[id] : "0" + millisecs[id])
