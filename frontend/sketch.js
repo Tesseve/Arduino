@@ -20,7 +20,7 @@ let isStarted2 = false;
 const PUNISHMENT = 2;
 const NBR_HISTORIC_TO_DISPLAY = 3;
 
-const apiUrl = "https://arduino.test/api/";
+const apiUrl = "https://arduino.tarrit.ch/api/";
 
 
 /* Corps de fonction P5 */
