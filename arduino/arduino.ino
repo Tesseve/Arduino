@@ -1,5 +1,4 @@
 #include <Pushbutton.h>
-#include <avdweb_Switch.h>
 
 /* Définition variables */
 
