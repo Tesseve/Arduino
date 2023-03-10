@@ -20,6 +20,8 @@ let isStarted2 = false;
 const PUNISHMENT = 2;
 const NBR_HISTORIC_TO_DISPLAY = 3;
 
+let playersColorClass = ["yellow", "red"];
+
 const apiUrl = "https://arduino.tarrit.ch/api/";
 
 
@@ -371,15 +373,40 @@ function toggleCountersText() {
   document.getElementById("button-toggle").textContent = (isStarted1 && isStarted2 ? "Stop" : "Start" ) + " (Espace)";
 }
 
+function setColorPlayer() {
+  for (let i = 0; i < 2; i++) {
+    const player = document.getElementById("name_player_" + i);
+    player.classList.remove("red");
+    player.classList.remove("yellow");
+    player.classList.add(playersColorClass[i]);
+
+    const timer = document.getElementById("section-chrono" + i);
+    timer.classList.remove("red");
+    timer.classList.remove("yellow");
+    timer.classList.add(playersColorClass[i]);
+  }
+}
+
+function switchColorPlayer() {
+  playersColorClass = playersColorClass.reverse();
+  setColorPlayer();
+}
+
 
 /* Raccourcis claviers */
 
 document.onkeyup = function(e) {
+  console.log(e.key);
   if(e.key == " "){
     toggleCounters();
   }
 
-  if(e.key == "Escape"){
+  if(e.key.toUpperCase() == "R"){
     resetCounters();
   }
+
+  if(e.key.toUpperCase() == "C"){
+    switchColorPlayer();
+  }
 };
+
