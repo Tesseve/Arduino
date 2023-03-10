@@ -108,6 +108,7 @@ function portClose() {
 function init() {
   timers = [];
   addChronos();
+  setNames();
 }
 
 function addChronos() {
@@ -155,6 +156,7 @@ function resetCounters() {
   resetCounter(0);
   resetCounter(1);
   errors = [0,0];
+  renderErrors();
   write("reset");
 }
 
@@ -296,6 +298,9 @@ async function saveScore(name, value, mode) {
     console.log(res);
     if (res) {
       await fetchScores();
+      for (let i = 0; i < 2; i++) {
+        localStorage.setItem("name_player_" + i, getName(i));
+      }
     }
   } catch (e) {
     console.log(e);
@@ -392,6 +397,12 @@ function switchColorPlayer() {
   setColorPlayer();
 }
 
+function setNames() {
+  for (let i = 0; i < 2; i++) {
+    const name = document.getElementById("name_player_" + i);
+    name.textContent = localStorage.getItem("name_player_" + i) || "Joueur " + (i + 1);
+  }
+}
 
 /* Raccourcis claviers */
 
